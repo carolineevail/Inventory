@@ -4,10 +4,12 @@
 public class InventoryItem {
     public String itemName;
     public int quantity;
+    public String category;
 
 
-    //public InventoryItem(String itemName, int quantity) {
+    public InventoryItem() {
 
+    }
 
     public InventoryItem(String itemName, int quantity) {
         this.itemName = itemName;

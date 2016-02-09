@@ -7,13 +7,38 @@ import java.util.Scanner;
  * Created by Caroline on 2/8/16.
  */
 public class Inventory {
-    public static void main(String[] args) {
+    public static InventoryItem createItem(String name, int quantity, String category) throws Exception {
+        if (category.equalsIgnoreCase("Fruit")) {
+            return new Fruit(name, quantity);
+        }
+
+        if (category.equalsIgnoreCase("Vegetable")) {
+            return new Vegetable(name, quantity);
+        }
+
+        else if (category.equalsIgnoreCase("Meat")) {
+            return new Meat(name, quantity);
+        }
+
+        else if (category.equalsIgnoreCase("Cheese")) {
+            return new Cheese(name, quantity);
+        }
+
+        else if (category.equalsIgnoreCase("Drink")) {
+            return new Drink(name, quantity);
+        }
+        else {
+            throw new Exception("Invalid category name.");
+        }
+    }
+    public static void main(String[] args) throws Exception {
+
         Scanner scanner = new Scanner(System.in);
 
 
-        InventoryItem apples = new InventoryItem("Apples", 10);
-        InventoryItem pears = new InventoryItem("Pears", 5);
-        InventoryItem bananas = new InventoryItem("Bananas", 7);
+        Fruit apples = new Fruit("Apples", 10);
+        Fruit pears = new Fruit("Pears", 5);
+        Fruit bananas = new Fruit("Bananas", 7);
 
         ArrayList<InventoryItem> items = new ArrayList<>();
         items.add(apples);
@@ -23,7 +48,7 @@ public class Inventory {
         int index = 1;
 
         for (InventoryItem x : items) {
-            System.out.println(index + "." + "[" + x.quantity + "]" + x.itemName);
+            System.out.printf("%d. [%d] %s\n", index, x.quantity, x.itemName);
             index ++;
         }
 
@@ -43,7 +68,10 @@ public class Inventory {
                 System.out.println("Enter quantity of new item:");
                 int quantity = Integer.valueOf(scanner.nextLine());
 
-                InventoryItem item = new InventoryItem(itemName, quantity);
+                System.out.println("Enter category name:");
+                String category = scanner.nextLine();
+
+                InventoryItem item = createItem(itemName, quantity, category);
                 items.add(item);
             }
             else if (option.equals("2")) {
@@ -62,7 +90,7 @@ public class Inventory {
                 int i = 1;
 
                 for (InventoryItem x : items) {
-                    System.out.println(i + "." + "[" + x.quantity + "]" + x.itemName);
+                    System.out.printf("%d. [%d] %s, %s\n", i, x.quantity, x.itemName, x.category);
                     i ++;
                 }
             }
